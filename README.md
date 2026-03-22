@@ -70,34 +70,34 @@ La aplicación principal parte de [`LazyWinAdmin_v8.0.ps1`](RNCG/LazyWinAdmin_v8
 
 ### Módulos
 
-- [`SharedDataManager.psm1`](NRC_APP/modules/SharedDataManager.psm1): configuración de entorno, rutas compartidas y sincronización.
-- [`DataCollection.psm1`](NRC_APP/modules/DataCollection.psm1): recogida asíncrona de información remota.
-- [`ScriptRunner.psm1`](NRC_APP/modules/ScriptRunner.psm1): ejecución de scripts según el método configurado.
-- [`DHCP.psm1`](NRC_APP/modules/DHCP.psm1): consultas DHCP cuando el puesto dispone de RSAT.
+- [`SharedDataManager.psm1`](RNCG/modules/SharedDataManager.psm1): configuración de entorno, rutas compartidas y sincronización.
+- [`DataCollection.psm1`](RNCG/modules/DataCollection.psm1): recogida asíncrona de información remota.
+- [`ScriptRunner.psm1`](RNCG/modules/ScriptRunner.psm1): ejecución de scripts según el método configurado.
+- [`DHCP.psm1`](RNCG/modules/DHCP.psm1): consultas DHCP cuando el puesto dispone de RSAT.
 
 ### Secciones
 
-- [`FerramentasAdmin.psm1`](NRC_APP/sections/FerramentasAdmin.psm1): acceso a consolas administrativas y portales.
-- [`LocalHost.psm1`](NRC_APP/sections/LocalHost.psm1): herramientas del equipo local.
-- [`Scripts.psm1`](NRC_APP/sections/Scripts.psm1): catálogo de scripts integrados y personalizados.
-- [`Aplicacions.psm1`](NRC_APP/sections/Aplicacions.psm1): subaplicaciones internas y apps externas.
-- [`Configuracion.psm1`](NRC_APP/sections/Configuracion.psm1): inventario de equipos, parámetros de entorno y limpieza de Pass Keeper.
-- [`PassKeeper.psm1`](NRC_APP/sections/PassKeeper.psm1): almacenamiento cifrado de valores de uso rápido.
+- [`FerramentasAdmin.psm1`](RNCG/sections/FerramentasAdmin.psm1): acceso a consolas administrativas y portales.
+- [`LocalHost.psm1`](RNCG/sections/LocalHost.psm1): herramientas del equipo local.
+- [`Scripts.psm1`](RNCG/sections/Scripts.psm1): catálogo de scripts integrados y personalizados.
+- [`Aplicacions.psm1`](RNCG/sections/Aplicacions.psm1): subaplicaciones internas y apps externas.
+- [`Configuracion.psm1`](RNCG/sections/Configuracion.psm1): inventario de equipos, parámetros de entorno y limpieza de Pass Keeper.
+- [`PassKeeper.psm1`](RNCG/sections/PassKeeper.psm1): almacenamiento cifrado de valores de uso rápido.
 
 ### Subaplicaciones
 
-- [`app/Chat/`](NRC_APP/app/Chat/): chat remoto entre técnico y usuario.
-- [`app/ExtFinder/`](NRC_APP/app/ExtFinder/): consulta y mantenimiento de extensiones.
-- [`app/WOL/`](NRC_APP/app/WOL/): encendido Wake on LAN con soporte de relay entre subredes.
+- [`app/Chat/`](RNCG/app/Chat/): chat remoto entre técnico y usuario.
+- [`app/ExtFinder/`](RNCG/app/ExtFinder/): consulta y mantenimiento de extensiones.
+- [`app/WOL/`](RNCG/app/WOL/): encendido Wake on LAN con soporte de relay entre subredes.
 
 ## Configuración y persistencia
 
 RCNG utiliza varios recursos locales:
 
-- [`ComputerNames.sqlite`](NRC_APP/database/ComputerNames.sqlite) para equipos y extensiones;
-- [`scripts_db.json`](NRC_APP/database/scripts_db.json) para el catálogo de scripts;
-- [`apps_db.json`](NRC_APP/database/apps_db.json) para las aplicaciones externas;
-- [`appsettings.json`](NRC_APP/database/appsettings.json) para la configuración del entorno.
+- [`ComputerNames.sqlite`](RNCG/database/ComputerNames.sqlite) para equipos y extensiones;
+- [`scripts_db.json`](RNCG/database/scripts_db.json) para el catálogo de scripts;
+- [`apps_db.json`](RNCG/database/apps_db.json) para las aplicaciones externas;
+- [`appsettings.json`](RNCG/database/appsettings.json) para la configuración del entorno.
 
 La configuración global permite definir, entre otros, estos valores:
 
@@ -135,29 +135,29 @@ El flujo recomendado es:
 
 1. ejecutar el launcher desde [`Launcher_RNCG/`](Launcher_RNCG/);
 2. desplegar o actualizar la copia local;
-3. revisar [`NRC_APP/database/appsettings.json`](NRC_APP/database/appsettings.json) o `Configuracion -> Entorno global`;
+3. revisar [`RNCG/database/appsettings.json`](RNCG/database/appsettings.json) o `Configuracion -> Entorno global`;
 4. cargar el inventario de equipos si se va a usar `Actualizar Datos`, `ExtFinder` o WOL.
 
 ## Documentación incluida
 
-La documentación funcional y técnica del proyecto está en [`RNCG/doc/`](NRC_APP/doc/):
+La documentación funcional y técnica del proyecto está en [`RNCG/doc/`](RNCG/doc/):
 
-- [Índice documental](NRC_APP/doc/README.md)
-- [Arquitectura](NRC_APP/doc/ARCHITECTURE.md)
-- [Estructura del proyecto](NRC_APP/doc/PROJECT_STRUCTURE.md)
-- [Dependencias](NRC_APP/doc/DEPENDENCIES.md)
-- [Instalación](NRC_APP/doc/INSTALLATION.md)
-- [Mantenimiento](NRC_APP/doc/MAINTENANCE.md)
-- [Referencia de módulos](NRC_APP/doc/MODULES_REFERENCE.md)
-- [Referencia de scripts](NRC_APP/doc/SCRIPTS_REFERENCE.md)
-- [Manual de usuario](NRC_APP/doc/USER_GUIDE.md)
+- [Índice documental](RNCG/doc/README.md)
+- [Arquitectura](RNCG/doc/ARCHITECTURE.md)
+- [Estructura del proyecto](RNCG/doc/PROJECT_STRUCTURE.md)
+- [Dependencias](RNCG/doc/DEPENDENCIES.md)
+- [Instalación](RNCG/doc/INSTALLATION.md)
+- [Mantenimiento](RNCG/doc/MAINTENANCE.md)
+- [Referencia de módulos](RNCG/doc/MODULES_REFERENCE.md)
+- [Referencia de scripts](RNCG/doc/SCRIPTS_REFERENCE.md)
+- [Manual de usuario](RNCG/doc/USER_GUIDE.md)
 
 ## Estructura del repositorio
 
 ```text
 RCNG/
-|-- Launcher_RNC/
-`-- NRC_APP/
+|-- Launcher_RNCG/
+`-- RNCG/
 ```
 
 La carpeta `Launcher_RNCG/` contiene el launcher y sus recursos. La carpeta `RNCG/` contiene la aplicación operativa y toda la documentación asociada.
