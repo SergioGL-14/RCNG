@@ -4,8 +4,8 @@ RCNG es una herramienta de soporte remoto para entornos Windows desarrollada sob
 
 El repositorio se organiza en dos bloques principales:
 
-- [`Launcher_RNCG/`](Launcher_RNCG/), responsable del despliegue, la actualización y el arranque.
-- [`RNCG/`](RNCG/), que contiene la aplicación principal, sus módulos, secciones, datos y documentación.
+- [`Launcher_RNC/`](Launcher_RNC/), responsable del despliegue, la actualización y el arranque.
+- [`RNCG/`](NRC_APP/), que contiene la aplicación principal, sus módulos, secciones, datos y documentación.
 
 ## Origen del proyecto
 
@@ -133,7 +133,7 @@ Algunas funciones dependen además de herramientas o consolas del puesto técnic
 
 El flujo recomendado es:
 
-1. ejecutar el launcher desde [`Launcher_RNCG/`](Launcher_RNCG/);
+1. ejecutar el launcher desde [`Launcher_RNCG/`](Launcher_RNC/);
 2. desplegar o actualizar la copia local;
 3. revisar [`NRC_APP/database/appsettings.json`](NRC_APP/database/appsettings.json) o `Configuracion -> Entorno global`;
 4. cargar el inventario de equipos si se va a usar `Actualizar Datos`, `ExtFinder` o WOL.
