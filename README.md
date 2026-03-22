@@ -1,185 +1,163 @@
-# LazyWinAdmin_GUI
-LazyWinAdmin is a project released in 2012, a PowerShell Script that generates a GUI/WinForms loaded with tons of functions.
-This utility is very helpful for anyone managing workstations or servers. I hope this help you in your day to day tasks.
+# RCNG
 
-The Form was created using Sapien Powershell Studio 2012.
+RCNG es una herramienta de soporte remoto para entornos Windows desarrollada sobre PowerShell 5.1 y WinForms. El proyecto concentra en una sola interfaz tareas habituales de administración, inventario, acceso remoto, ejecución de scripts, mantenimiento de datos locales y utilidades auxiliares de soporte.
 
-![alt text](/Media/lwa-v0.4-main01.png "LazyWinAdmin")
+El repositorio se organiza en dos bloques principales:
 
-## Requirements
- * Powershell 2.0
- * Permission on the targeted System(s)
+- [`Launcher_RNCG/`](Launcher_RNCG/), responsable del despliegue, la actualización y el arranque.
+- [`RNCG/`](RNCG/), que contiene la aplicación principal, sus módulos, secciones, datos y documentación.
 
-## Optional tools
- * External Tools
-  * SystemInfo.exe
-  * DriverQuery
-  * AdExplorer -  http://technet.microsoft.com/en-us/sysinternals/bb963907.aspx
-  * PSExec - http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx
-  * PAExec - http://www.poweradmin.com/PAExec/
-  * WMIExplorer.ps1 - http://gallery.technet.microsoft.com/scriptcenter/89c759b7-20b4-49e8-98a8-3c8fbdb2dd69
- * Scripts
-  * sydi-server.vbs - http://sydiproject.com/products/sydi-server/
-  * WmiExplorer.ps1
+## Origen del proyecto
 
-## Contributions
-You are welcome to contribute. Refer to the License for details.
+RCNG es un fork de [LazyWinAdmin_GUI](https://github.com/lazywinadmin/LazyWinAdmin_GUI), proyecto publicado por `lazywinadmin` como una utilidad PowerShell con interfaz WinForms orientada a la administración remota de equipos Windows.
 
+La idea original se mantiene: una consola centralizada para operaciones de soporte técnico. A partir de esa base, RCNG amplía el proyecto con un launcher propio, persistencia local, sincronización, configuración de entorno, subaplicaciones integradas y una organización modular del código.
 
-## Version History
+## Qué aporta RCNG respecto al fork original
+
+Las diferencias principales frente a `LazyWinAdmin_GUI` son:
+
+- separación entre launcher y aplicación principal;
+- estructura modular mediante `modules/` y `sections/`;
+- persistencia local en SQLite y catálogos en JSON;
+- configuración de entorno editable desde la interfaz;
+- sincronización entre copia local y recurso compartido configurable;
+- catálogo dinámico de scripts y aplicaciones externas;
+- subaplicaciones integradas como `Chat`, `ExtFinder` y `WOL`;
+- almacenamiento cifrado de datos de sesión y `Pass Keeper`;
+- adaptación del proyecto a un flujo de trabajo operativo con despliegue local.
+
+RCNG no replica la estructura del repositorio original, sino que toma su base funcional y la desarrolla como una aplicación más amplia y más organizada.
+
+## Funcionalidad principal
+
+Desde la interfaz principal es posible:
+
+- consultar información remota de equipos Windows;
+- validar conectividad, permisos administrativos, RDP, VNC y WinRM;
+- abrir `RDP`, `CMD Remota`, `PS Remota`, `VNC` y `Explorer++`;
+- ejecutar acciones rápidas como `GPUpdate`, cierre de sesión, reinicio, encendido por WOL y apagado;
+- acceder a herramientas administrativas desde el menú `Administrador`;
+- abrir consolas y herramientas del puesto técnico desde `LocalHost`;
+- lanzar scripts integrados o personalizados desde `Scripts`;
+- abrir subaplicaciones internas y aplicaciones externas registradas en `Aplicacions`;
+- mantener el inventario local de equipos y extensiones;
+- editar la configuración global del entorno desde `Configuracion`.
+
+## Arquitectura actual
+
+### `RNCG`
+
+El launcher gestiona el ciclo de arranque:
+
+1. solicita credenciales;
+2. comprueba la disponibilidad del recurso compartido configurado;
+3. copia o actualiza la instalación local en `C:\RNCG`;
+4. genera `temp.pass` para la sesión;
+5. lanza la aplicación local.
+
+### `RNCG`
+
+La aplicación principal parte de [`LazyWinAdmin_v8.0.ps1`](RNCG/LazyWinAdmin_v8.0.ps1), que actúa como orquestador de interfaz, datos y acciones remotas. A su alrededor se distribuyen:
+
+- `modules/` para lógica transversal;
+- `sections/` para menús y áreas funcionales;
+- `database/` para SQLite y JSON;
+- `app/` para subaplicaciones;
+- `scripts/`, `tools/`, `libs/`, `vnc/` e `icos/` como recursos operativos.
+
+## Componentes destacados
+
+### Módulos
+
+- [`SharedDataManager.psm1`](NRC_APP/modules/SharedDataManager.psm1): configuración de entorno, rutas compartidas y sincronización.
+- [`DataCollection.psm1`](NRC_APP/modules/DataCollection.psm1): recogida asíncrona de información remota.
+- [`ScriptRunner.psm1`](NRC_APP/modules/ScriptRunner.psm1): ejecución de scripts según el método configurado.
+- [`DHCP.psm1`](NRC_APP/modules/DHCP.psm1): consultas DHCP cuando el puesto dispone de RSAT.
+
+### Secciones
+
+- [`FerramentasAdmin.psm1`](NRC_APP/sections/FerramentasAdmin.psm1): acceso a consolas administrativas y portales.
+- [`LocalHost.psm1`](NRC_APP/sections/LocalHost.psm1): herramientas del equipo local.
+- [`Scripts.psm1`](NRC_APP/sections/Scripts.psm1): catálogo de scripts integrados y personalizados.
+- [`Aplicacions.psm1`](NRC_APP/sections/Aplicacions.psm1): subaplicaciones internas y apps externas.
+- [`Configuracion.psm1`](NRC_APP/sections/Configuracion.psm1): inventario de equipos, parámetros de entorno y limpieza de Pass Keeper.
+- [`PassKeeper.psm1`](NRC_APP/sections/PassKeeper.psm1): almacenamiento cifrado de valores de uso rápido.
+
+### Subaplicaciones
+
+- [`app/Chat/`](NRC_APP/app/Chat/): chat remoto entre técnico y usuario.
+- [`app/ExtFinder/`](NRC_APP/app/ExtFinder/): consulta y mantenimiento de extensiones.
+- [`app/WOL/`](NRC_APP/app/WOL/): encendido Wake on LAN con soporte de relay entre subredes.
+
+## Configuración y persistencia
+
+RCNG utiliza varios recursos locales:
+
+- [`ComputerNames.sqlite`](NRC_APP/database/ComputerNames.sqlite) para equipos y extensiones;
+- [`scripts_db.json`](NRC_APP/database/scripts_db.json) para el catálogo de scripts;
+- [`apps_db.json`](NRC_APP/database/apps_db.json) para las aplicaciones externas;
+- [`appsettings.json`](NRC_APP/database/appsettings.json) para la configuración del entorno.
+
+La configuración global permite definir, entre otros, estos valores:
+
+- ruta compartida principal;
+- URL PAC del proxy;
+- portales web;
+- inventario WOL;
+- servidor DHCP por defecto;
+- nombre y correo visibles del soporte;
+- bases LDAP empleadas por los formularios de grupos.
+
+## Credenciales y cifrado
+
+RCNG utiliza dos mecanismos principales:
+
+- `temp.pass`, generado por el launcher para reutilizar la contraseña de sesión en el flujo VNC;
+- `Pass Keeper`, que guarda datos cifrados por usuario en `%LOCALAPPDATA%`.
+
+El fichero `temp.pass` se cifra con una clave derivada del `MachineGuid` del equipo. `Pass Keeper` mantiene su propio esquema de cifrado local para los valores almacenados por el usuario.
+
+## Requisitos técnicos
+
+Los requisitos base del proyecto son:
+
+- Windows con PowerShell 5.1;
+- .NET Framework con soporte WinForms;
+- [`System.Data.SQLite.dll`](NRC_APP/libs/System.Data.SQLite.dll);
+- acceso a red para SMB/UNC, WMI/CIM/DCOM, RDP, VNC e ICMP según la operación realizada.
+
+Algunas funciones dependen además de herramientas o consolas del puesto técnico, como `dsa.msc`, `printmanagement.msc`, `dhcpmgmt.msc`, `wsus.msc` o utilidades incluidas en `tools/`.
+
+## Arranque y uso inicial
+
+El flujo recomendado es:
+
+1. ejecutar el launcher desde [`Launcher_RNCG/`](Launcher_RNCG/);
+2. desplegar o actualizar la copia local;
+3. revisar [`NRC_APP/database/appsettings.json`](NRC_APP/database/appsettings.json) o `Configuracion -> Entorno global`;
+4. cargar el inventario de equipos si se va a usar `Actualizar Datos`, `ExtFinder` o WOL.
+
+## Documentación incluida
+
+La documentación funcional y técnica del proyecto está en [`RNCG/doc/`](NRC_APP/doc/):
+
+- [Índice documental](NRC_APP/doc/README.md)
+- [Arquitectura](NRC_APP/doc/ARCHITECTURE.md)
+- [Estructura del proyecto](NRC_APP/doc/PROJECT_STRUCTURE.md)
+- [Dependencias](NRC_APP/doc/DEPENDENCIES.md)
+- [Instalación](NRC_APP/doc/INSTALLATION.md)
+- [Mantenimiento](NRC_APP/doc/MAINTENANCE.md)
+- [Referencia de módulos](NRC_APP/doc/MODULES_REFERENCE.md)
+- [Referencia de scripts](NRC_APP/doc/SCRIPTS_REFERENCE.md)
+- [Manual de usuario](NRC_APP/doc/USER_GUIDE.md)
+
+## Estructura del repositorio
+
+```text
+RCNG/
+|-- Launcher_RNC/
+`-- NRC_APP/
 ```
-2011.06.29
-	-Added link to Powershell ISE
-2011.06.26
-	-RDP Check/Enable/Disable Added
-2011.06.24
-	-Added Application List, PSRemoting, Inventory Buttons moved in TOOLS
-	-Services - AutoNotStarted - Check if all the services with StartMode AUTOMATIC are actually Running
-	-Services - Auto - Removed ProcessID in results
-2011.06.30
-	-Fixed the Problems with Start/Stop Service buttons
-	-Add AutoComplete (Append and Suggest) (need to fill the computers.txt)
-	-Add AutoDisable Buttons/TabControl if not Server Entered
-	-Add Get-USB - Report all the USB device on the Computer
-2011.08.11
-	-Correct Compmgmt.msc button
-2011.08.15
-	-Title bar with current username and domain
-	-Change font from Microsoft Sans cherif to Trebuchet MS
-	-Scroll to bottom when text is changed
-	-ADD more logs to buttons
-2011.08.30
-	-ADD ErrorProvider on TextBox ComputerName
-2011.08.31
-	-SYDI Works (only .DOC for now)
-	-ADD the tool SysInternals AdExplorer
-2011.10.02
-	-FIX Query/Stop/Start Service buttons
-	-ADD Descriptions in logs RichTextBox for Query/Stop/Start Service buttons
-	-CHANGE Button :80 to HTTP
-	-ADD FTP, TELNET, HTTPS buttons
-2011.10.04
-	-FIX some problem with Uptime Button
-	-FIX Modified The Service Query/start/stop
-	-ADD Restart Service Button
-	-ADD TextBox with AutoCompletion on some Services i added
-2011.10.06
-	-ERROR AutoCompletion in the TEXTBOX of Services seems to make the thing crash :-(
-2011.10.23
-	-REMOVE AutoCompletion in Service Tab, in ServiceName TextBox
-	-ADD Get Local Hosts File (Menu: LocalHost/Hosts File)
-	-ADD Get Remote Hosts File (in General Tab,need permission on remote c$)
-	-REMOVE Computers.txt auto-completion, seems buggy :-(
-	-ADD Active Directory Form
-	-ADD IP Calculator Form
-2011.11.24
-	-FIX ENTER-PSSESSION button.
-2011.12.05
-	-REPLACED some function by button with icons below Computername
-	-MOVED the TEST-PSSESSION button to TOOL tab
-	-ADD the TEST-PSSESSION inside the ENTER-PSSESSION button. (2 in 1 :)
-2011.12.26
-	-MODIFY Inventory button and output (add more info)
-	-MODIFY IpConfig to use the one from BSonPosh module
-2011.12.28
-	-ADD button IPCONFIG, DISK USAGE
-2012.01.06
-	-ADD START COMMANDS in General Tab
-	-ADD SYDI option (dropdown) to choose DOC or XML format.
-	-ADD Combobox in TOOLS Tab, and ADD the present tools in combobox
-	-REMOVE Buttons in TOOLS tab (the ones placed in Combobox)
-	-FIX the ContextMenuStrip on TextBox SERVERNAME.
-	-ADD option of type for SYDI (DOC or XML)
-2012.01.29
-	-FIX the names of all the variables (for Winforms controls only)
-	-ADD Qwinsta and Rwinsta to contextmenu of computername textbox
-	-FIX SYDI (DOC and XML now work) auto-save on Desktop of Current User
-	-FIX "Installed Applications" show the full names of each application,vendors and versions.
-2012.01.31
-	-ADD Connectivity Testing Button (Remote registry, ping, RPC, RDP, WsMan)
-	-ADD another more info to ipconfig button
-2012.02.02
-	-ADD Invoke-item in SYDI to open the Explorer
-2012.04.09
-	-Remove Button Test PsRemoting
-	-Moved "Generate a Password" under AdminArsenal Menu
-	-Delete Menu TOOLS
-	-Change the size of Author Form (smaller)
-2012.04.10
-	-Redesign a bit the interface
-	-Add a few tabs (Software, Other Powershell script, external tools)
-	-Add a Panel for basic connectivity test and properties
-	-Correct Logs RichTextBox, fix error "Property ENABLED does not exist"
-	-Add some colors to the Connectivity Panel (OK: green, FAIL: red, other: blue)
-	-Add PAExec and PSexec in the TOOLS directory, Button are in the tab "External tools".
-	 by default, it will launch a CMD.exe
-	-Moved all the external tools (tools that are not Powershell) under "External Tools"
-2012.04.14
-	-Add ActiveDirectory Tab
-	-Add GPUpdate function, Tab "Active Directory"
-	-Remove EMAIL options
-	-Remove NOTEPAD button (export of richtextbox)
-	-Add EXPORT RTF button (open in wordpad)
-	-Comment all the "Clear-RichTextBox" function use
-	-Rename the COPY button (close to the richtextbox) to ClipBoard
-	-Move EXIT button to the bottom.
-	-Remove PASTE button
-2012.04.17
-	-MODIFY Function Add-Logs (Alias, Add the return to line)
-	-MODIFY Function Add-RichTextBox (Alias, Add the return to line
-	-FIX the ComputersList Load.
-	-Clean some variable and add comments of the mainform script.
-	-ADD a SCRIPTS folder with the variable: $ScriptsPath
-2012.04.18
-	-Upgraded my PrimalForms 2011 to PowerShell Studio 2012
-	-Remove the ListBox from the Beta and readd the buttons
-2012.04.20
-	-Ability to Maximize the windows (i used WinForm Docking/Move Front,Back)
-2012.05.12
-	-Cleaning Some code
-	-Fixes some bugs
-	-Remove unused Functions
-	-Checking if tools are present when the form load, disable buttons if not present.
-	-Add MotherBoard,PageFile Settings, System Type buttons
-	-AD KMS Information, FSMO
-2012.05.16
-	-Adding functions BackgroundJobs for long process(not used yet)
-2012.05.17
-	-Renaming a couple of buttons and add ToolTip Info for each.
-	-Modify Ipconfig button under Network, only one result come out now
-	-Remove the ROUTE PRINT button form Network, kept only ROUTE TABLE
-	-Add a button to show Process CommandLine Argument (command line used to launch each process)
-	-Modify Button CommandLine with Out-String Width = $richtextbox.width
-	-Modify Button Shares with Out-String Width = $richtextbox.width
-	-CTRL+Scroll in the RichTextBox is working now
-	-Richtextbox dont overlap on middle bar anymore (middle bar=buttons exit,copy clipboard...)
-	-Add Button to change and set local Computer Description
-	-Add Button to change and set Active Directory Computer Description
-2012.05.28
-	-Getting ready for a public open source version
-	-Remove and move a couple of function, tabs and unused buttons
-	-Add Tip info on most of the button (pass over button help)
-	-Add WindowsUpdate.log and ReportingEvents.log Button
-	-Fix Open C$ button
-	-Icons added to the main functions
-	-OnLoad of the Form, the script will test the path of the scrtips and External tools
-	 if not present, the script will disable the buttons
-	-Load of Computers.txt works with an Export to PS1 (not with Export to EXE)
-2012.05.30
-	-Corrected color of the check buttons
-	-Corrected the Restart and Shutdown button to have a prompt.
-	-Corrected MsINFO32.exe check (during the load of the form)
-2012.06.06
-	-Changed some Icons
-	-Add confirmation on EXIT Button
-2012.06.07
-	-Press Enter on ComputerTxtBox will ping the machine
-	-Modified the CHECK, now the full OS information is returned
-2012.06.10
-	-Fixed the directory issue (scripts tools)
-2012.06.13
-	-Renamed the forms
-	-Removed the form "LocalHost Current information"
-	-Fix Qwinsta and Rwinsta, if and else based on 32 or 64bits now
-	-Align the CHECK textboxes
-```
+
+La carpeta `Launcher_RNCG/` contiene el launcher y sus recursos. La carpeta `RNCG/` contiene la aplicación operativa y toda la documentación asociada.
