@@ -66,7 +66,7 @@ function Get-LauncherSettingValue {
 $SERVER_PATH = Get-LauncherSettingValue -Key 'SharedServerBase' -DefaultValue $SERVER_PATH
 
 # La clave sale del MachineGuid para que el launcher y la app compartan el mismo secreto local.
-# AsÃ­ temp.pass solo puede reutilizarse en este mismo equipo.
+# Asi temp.pass solo puede reutilizarse en este mismo equipo.
 function Get-PassKey {
     $guid   = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Cryptography' -Name MachineGuid).MachineGuid
     $salt   = [System.Text.Encoding]::UTF8.GetBytes('NRC_Pass_v6_Salt_2026')
