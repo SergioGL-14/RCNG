@@ -1,0 +1,122 @@
+﻿[
+    {
+        "Name":  "Configurar Proxy",
+        "FileName":  "",
+        "IconFile":  "proxy_config.ico",
+        "Category":  "Configuracion",
+        "ExecutionMethod":  "custom",
+        "CustomHandler":  "Invoke-Scripts_ConfigurarProxy",
+        "BuiltIn":  true,
+        "BuiltInKey":  "proxy",
+        "SortOrder":  1,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Configurar Edge",
+        "FileName":  "Configurar Edge.ps1",
+        "IconFile":  "Edge.ico",
+        "Category":  "Configuracion",
+        "ExecutionMethod":  "standard",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "edge",
+        "SortOrder":  2,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Last Login",
+        "FileName":  "LastLogin.ps1",
+        "IconFile":  "LastLogin.ico",
+        "Category":  "Utilidades",
+        "ExecutionMethod":  "standard",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "lastlogin",
+        "SortOrder":  10,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Desinstalar KB",
+        "FileName":  "Desinstalar KB.ps1",
+        "IconFile":  "DesinstalarKB.ico",
+        "Category":  "Utilidades",
+        "ExecutionMethod":  "custom",
+        "CustomHandler":  "Invoke-Scripts_DesinstalarKB",
+        "BuiltIn":  true,
+        "BuiltInKey":  "kb",
+        "SortOrder":  12,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Clean Spooler",
+        "FileName":  "Clean Spooler.bat",
+        "IconFile":  "Clean_Spooler.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "batch-remote",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "spooler",
+        "SortOrder":  20,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Clean Temp",
+        "FileName":  "Clean Temp.bat",
+        "IconFile":  "Clean_Temporales.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "batch-remote",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "temporales",
+        "SortOrder":  21,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Reset Scardvr",
+        "FileName":  "Reset Scardvr.bat",
+        "IconFile":  "Reset_Card.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "batch-remote",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "tarjeta",
+        "SortOrder":  22,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Reconectar Lector",
+        "FileName":  "Reconectar Lector.ps1",
+        "IconFile":  "Reconectar_Lector.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "standard",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "lector",
+        "SortOrder":  23,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Repair Taskbar",
+        "FileName":  "Repair Taskbar.ps1",
+        "IconFile":  "Taskbar.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "psexec-system",
+        "CustomHandler":  "",
+        "BuiltIn":  true,
+        "BuiltInKey":  "taskbar",
+        "SortOrder":  26,
+        "AddedOn":  "2026-03-20 10:31:20"
+    },
+    {
+        "Name":  "Renombrar Perfil",
+        "FileName":  "",
+        "IconFile":  "RenombrarPerfil.ico",
+        "Category":  "Workaround",
+        "ExecutionMethod":  "custom",
+        "CustomHandler":  "Invoke-Scripts_RenombrarPerfil",
+        "BuiltIn":  true,
+        "BuiltInKey":  "perfil",
+        "SortOrder":  27,
+        "AddedOn":  "2026-03-20 10:31:20"
+    }
+]
